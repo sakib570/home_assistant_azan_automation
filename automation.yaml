@@ -14,27 +14,27 @@
   - alias: ''
     data:
       entity_id: media_player.living_room_speaker
-      media_content_id: https://www.youtube.com/watch?v=ADLO-Hm_nCQ
+      media_content_id: https://youtu.be/uiEGpnelJEA
       media_content_type: audio/youtube
     service: media_extractor.play_media
   - data:
       entity_id: media_player.living_room_speaker
-      volume_level: '0.7'
+      volume_level: '0.4'
     service: media_player.volume_set
   mode: single
 - action:
   - data:
       entity_id: media_player.living_room_speaker
-      media_content_id: https://www.youtube.com/watch?v=VHcRTIcRvN8
-      media_content_type: audio/youtube
+      media_content_id: https://s3.intahnet.co.uk/athan/fajr.mp3
+      media_content_type: audio/mp3
     service: media_extractor.play_media
   - data:
       entity_id: media_player.living_room_speaker
-      volume_level: '0.6'
+      volume_level: '0.5'
     service: media_player.volume_set
   alias: Fajr Adhan
   condition: []
   id: '1517694139112'
   trigger:
   - platform: template
-    value_template: '{{ states("sensor.fajr") == states.sensor.time.state }}'
+    value_template: '{{ states("sensor.fajr") == states("sensor.time") }}'
