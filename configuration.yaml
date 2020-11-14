@@ -22,9 +22,9 @@ sensor:
     name: "Prayer Times"
     json_attributes:
       - data
-    resource: "http://api.aladhan.com/v1/timings?latitude=59.215820&longitude=17.937670&method=4&tune=0,15,-6,6,6,11,11,1,0"
-    value_template: '{{ value_json["data"]["meta"]["method"]["name"].title() }}'
-    scan_interval: 86400
+    resource: "http://tcs108.csc.kth.se:3000/"
+    value_template: '{{ value_json["data"].title() }}'
+    scan_interval: 21600
 
   - platform: template
     sensors:
@@ -33,13 +33,13 @@ sensor:
         value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Fajr"] | timestamp_custom("%H:%M") }}'
       dhuhr:
         friendly_name: 'Dhuhr Prayer Time'
-        value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Dhuhr"] | timestamp_custom("%H:%M") }}'
+        value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Dhohr"] | timestamp_custom("%H:%M") }}'
       asr:
         friendly_name: 'Asr Prayer Time'
         value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Asr"] | timestamp_custom("%H:%M") }}'
       magrib:
         friendly_name: 'Magrib Prayer Time'
-        value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Maghrib"] | timestamp_custom("%H:%M") }}'
+        value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Magrib"] | timestamp_custom("%H:%M") }}'
       isha:
         friendly_name: 'Isha Prayer Time'
         value_template: '{{ states.sensor.prayer_times.attributes.data.timings["Isha"] | timestamp_custom("%H:%M") }}'
@@ -54,6 +54,7 @@ sensor:
       - 'time_date'
       - 'time_utc'
       - 'beat'
+
 
 group: !include groups.yaml
 automation: !include automations.yaml
