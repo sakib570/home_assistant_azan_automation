@@ -1,0 +1,67 @@
+- id: '1517693010922'
+  alias: Adhan
+  trigger:
+  - platform: template
+    value_template: '{{ states("sensor.dhuhr")  == states("sensor.time") }}'
+  - platform: template
+    value_template: '{{ states("sensor.asr")  == states("sensor.time") }}'
+  - platform: template
+    value_template: '{{ states("sensor.magrib")  == states("sensor.time") }}'
+  - platform: template
+    value_template: '{{ states("sensor.isha")  == states("sensor.time") }}'
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.living_room_speaker
+      media_content_id: http://ip:8123/local/Golam_Mustafa_Azan.mp3
+      media_content_type: audio/mp3
+    service: media_extractor.play_media
+  - data:
+      entity_id: media_player.living_room_speaker
+      volume_level: '0.4'
+    service: media_player.volume_set
+  mode: single
+- id: '1517694139112'
+  alias: Fajr Adhan
+  trigger:
+  - platform: template
+    value_template: '{{ states("sensor.fajr") == states("sensor.time") }}'
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.living_room_speaker
+      media_content_id: http://ip:8123/local/fajr.mp3
+      media_content_type: audio/mp3
+    service: media_extractor.play_media
+  - data:
+      entity_id: media_player.living_room_speaker
+      volume_level: '0.3'
+    service: media_player.volume_set
+  mode: single
+- id: '1636311992160'
+  alias: Patio Light Turn Off
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 1388483ff7f82699c72bd2d6d787f6ea
+    entity_id: light.patio_light
+    domain: light
+  mode: single
+- id: '1636312362640'
+  alias: Patio Light Turn On
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 1388483ff7f82699c72bd2d6d787f6ea
+    entity_id: light.patio_light
+    domain: light
+    brightness_pct: 100
+  mode: single
